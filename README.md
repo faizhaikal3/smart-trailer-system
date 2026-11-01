@@ -2,8 +2,11 @@
 
 [![Shell SSSVC 2026](https://img.shields.io/badge/Shell%20SSSVC-Top%2020%20Finalist-brightgreen)](https://github.com/faizhaikal3/smart-trailer-system)
 [![Award](https://img.shields.io/badge/Infineon%20Week%202026-2nd%20Runner--Up%20(Prototype)-orange)](https://github.com/faizhaikal3/smart-trailer-system)
+[![Live Demo](https://img.shields.io/badge/Website-Live%20Preview-blue?style=for-the-badge&logo=netlify)](https://adaptivesmarttrailersafetysystem.netlify.app/)
 
 An advanced, real-time blind spot monitoring and safety solution purpose-built for cargo trailers. By combining a centralized 360-degree LiDAR architecture with a dedicated **1.9" TFT HUD Display**, this system effectively eliminates traditional heavy vehicle blind spots and enhances road safety.
+
+> **🌐 Live Project Website:** [https://adaptivesmarttrailersafetysystem.netlify.app/](https://adaptivesmarttrailersafetysystem.netlify.app/)
 
 ---
 
