@@ -1,0 +1,864 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Adaptive Smart Trailer Safety System | ASTSS</title>
+<meta name="description" content="LiDAR-based vehicle safety system for safe lane changing and multi-zone blind-spot warning across trailers, trucks, buses, vans, and cars.">
+<meta name="keywords" content="safe lane changing, trailer safety, blind spot detection, LiDAR safety system, vehicle safety, SSSVC 2026, ESP32, truck, bus, van, car">
+<meta name="theme-color" content="#0d0507">
+
+<!-- Google Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
+
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com"></script>
+
+<!-- External CSS -->
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header class="navbar" id="navbar">
+  <div class="container-custom nav-inner">
+    <a href="#home" class="brand">
+      <span class="brand-mark">AST</span>
+      <span>Adaptive Smart Trailer</span>
+    </a>
+    <nav class="nav-links" id="navLinks">
+      <a href="#simulator">Live Simulator</a>
+      <a href="#vehicles">Vehicle Integration</a>
+      <a href="#technology">Hardware Tech</a>
+      <a href="#team">Team</a>
+      <a href="#lead-prototype">Ongoing Prototype</a>
+      <a href="#sssvc">Roadmap & Milestones</a>
+      <a href="#video">Video</a>
+      <a href="#comments">Live Comments</a>
+      <a href="#feedback" class="nav-cta">Book a Demo</a>
+    </nav>
+    <button class="menu-btn" id="menuBtn" aria-label="Toggle Navigation">☰</button>
+  </div>
+</header>
+
+<main>
+  <section class="hero" id="home">
+    <div class="container-custom hero-grid">
+      <div class="hero-copy reveal">
+        <div style="display:inline-flex; align-items:center; gap:10px; padding:6px 16px; border-radius:999px; background:rgba(16, 185, 129, 0.1); border:1px solid rgba(16, 185, 129, 0.3); color:var(--accent-emerald); font-size:11px; font-weight:700; letter-spacing:0.05em;">
+          <span class="pulse-green"></span>
+          360° LiDAR PROTOTYPE · SMART TRAILER SAFETY
+        </div>
+        <h1>
+          NO BLIND SPOTS. <span class="highlight">SAFE LANE CHANGES.</span>
+          <span style="display:block; color:var(--text-muted); font-weight:700; font-size:0.65em; margin-top:6px;">Built for trailers. Fits any vehicle.</span>
+        </h1>
+        <p style="color:var(--text-muted); font-size:16px; margin-top:20px; max-width:580px;">
+          An advanced single-LiDAR smart safety system engineered specifically to eliminate dangerous trailer blind spots for <strong>safe lane changing</strong>. Built primarily for heavy commercial trailers and articulated trucks, with modular compatibility extending to <strong>buses, vans, and cars as an added plus point</strong>.
+        </p>
+        
+        <div style="margin-top:20px; display:flex; flex-direction:column; gap:10px;">
+          <div style="display:flex; flex-wrap:wrap; gap:8px; align-items:center;">
+            <span style="font-size:11px; font-weight:800; padding:6px 14px; border-radius:8px; background:rgba(239, 68, 68, 0.18); border:1px solid rgba(239, 68, 68, 0.45); color:#ffffff; letter-spacing:0.02em;">🚛 CORE FOCUS: Heavy Commercial Trailers & Trucks</span>
+          </div>
+          <div style="display:flex; flex-wrap:wrap; gap:6px; align-items:center; font-size:12px; color:var(--text-muted);">
+            <span style="font-weight:700; color:var(--accent-emerald);">✨ Plus Point (Universal Support):</span>
+            <span style="padding:3px 10px; border-radius:6px; background:rgba(255,255,255,0.05); border:1px solid var(--line); font-size:11px;">🚌 Buses</span>
+            <span style="padding:3px 10px; border-radius:6px; background:rgba(255,255,255,0.05); border:1px solid var(--line); font-size:11px;">🚐 Vans</span>
+            <span style="padding:3px 10px; border-radius:6px; background:rgba(255,255,255,0.05); border:1px solid var(--line); font-size:11px;">🚗 Passenger Cars</span>
+          </div>
+        </div>
+
+        <div style="display:flex; flex-wrap:wrap; gap:14px; margin-top:32px;">
+          <a href="#simulator" class="btn btn-primary">Try Drag-&-Detect Sim ↗</a>
+          <a href="#vehicles" class="btn btn-secondary">Explore Vehicle Setups ↓</a>
+        </div>
+      </div>
+
+      <!-- Hero Visual Radar Preview -->
+      <div class="hero-visual reveal">
+        <div style="position:relative; width:100%; border-radius:28px; background:linear-gradient(145deg, #180d12, #0d0507); border:1px solid var(--line-bright); padding:24px; box-shadow:0 25px 60px rgba(0,0,0,0.6);">
+          <svg viewBox="0 0 500 380" style="width:100%; height:auto; display:block;" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <radialGradient id="beamGlow" cx="50%" cy="50%" r="50%">
+                <stop offset="0%" stop-color="#ef4444" stop-opacity="0.35"/>
+                <stop offset="100%" stop-color="#ef4444" stop-opacity="0"/>
+              </radialGradient>
+            </defs>
+
+            <!-- Radar Background Grid -->
+            <circle cx="250" cy="190" r="170" fill="none" stroke="rgba(255,255,255,0.05)" stroke-dasharray="4,4"/>
+            <circle cx="250" cy="190" r="120" fill="none" stroke="rgba(255,255,255,0.08)"/>
+            <line x1="250" y1="20" x2="250" y2="360" stroke="rgba(255,255,255,0.05)"/>
+            <line x1="80" y1="190" x2="420" y2="190" stroke="rgba(255,255,255,0.05)"/>
+
+            <!-- 360° Radial Scan Aura -->
+            <circle cx="250" cy="190" r="160" fill="url(#beamGlow)" stroke="rgba(239,68,68,0.25)" stroke-dasharray="4,4"/>
+
+            <!-- RECTANGULAR DETECTION ZONES -->
+            <rect x="180" y="25" width="140" height="60" fill="rgba(255,255,255,0.06)" stroke="rgba(255,255,255,0.6)" stroke-width="1.5" stroke-dasharray="4,4"/>
+            <rect x="80" y="85" width="100" height="210" fill="rgba(255,255,255,0.06)" stroke="rgba(255,255,255,0.6)" stroke-width="1.5" stroke-dasharray="4,4"/>
+            <rect x="320" y="85" width="100" height="210" fill="rgba(255,42,85,0.3)" stroke="#ff2a55" stroke-width="2"/>
+            <rect x="180" y="295" width="140" height="60" fill="rgba(255,255,255,0.06)" stroke="rgba(255,255,255,0.6)" stroke-width="1.5" stroke-dasharray="4,4"/>
+
+            <line x1="250" y1="190" x2="370" y2="190" stroke="#ff2a55" stroke-width="1.5" stroke-dasharray="3,3"/>
+
+            <!-- 2D Semi Trailer Chassis -->
+            <rect x="180" y="85" width="140" height="210" fill="#1b1115" stroke="#ef4444" stroke-width="2"/>
+            <!-- Wheels -->
+            <rect x="168" y="105" width="12" height="38" fill="#000" stroke="#7f1d1d"/>
+            <rect x="320" y="105" width="12" height="38" fill="#000" stroke="#7f1d1d"/>
+            <rect x="168" y="235" width="12" height="38" fill="#000" stroke="#7f1d1d"/>
+            <rect x="320" y="235" width="12" height="38" fill="#000" stroke="#7f1d1d"/>
+
+            <!-- LiDAR Sensor (Central Mounting Point) -->
+            <circle cx="250" cy="190" r="14" fill="#140a0e" stroke="#ef4444" stroke-width="2"/>
+            <circle cx="250" cy="190" r="7" fill="#ef4444">
+              <animate attributeName="r" values="5;8;5" dur="1.8s" repeatCount="indefinite"/>
+            </circle>
+
+            <!-- Target Motorcycle in Right Zone -->
+            <g transform="translate(370, 190)">
+              <circle cx="0" cy="0" r="15" fill="rgba(255,42,85,0.3)" stroke="#ff2a55" stroke-width="2"/>
+              <circle cx="0" cy="0" r="5" fill="#ff2a55"/>
+            </g>
+
+            <!-- Labels -->
+            <text x="250" y="194" fill="#ffffff" font-family="sans-serif" font-size="9" font-weight="bold" text-anchor="middle">LiDAR</text>
+            <text x="250" y="240" fill="#a89a9f" font-family="sans-serif" font-size="11" font-weight="bold" letter-spacing="2" text-anchor="middle">TRAILER</text>
+            <text x="130" y="195" fill="#ffffff" font-family="sans-serif" font-size="10" font-weight="bold" text-anchor="middle">LEFT</text>
+            <text x="370" y="120" fill="#ff2a55" font-family="sans-serif" font-size="10" font-weight="bold" text-anchor="middle">RIGHT</text>
+            <text x="250" y="60" fill="#ffffff" font-family="sans-serif" font-size="10" font-weight="bold" text-anchor="middle">FRONT</text>
+            <text x="250" y="330" fill="#ffffff" font-family="sans-serif" font-size="10" font-weight="bold" text-anchor="middle">BEHIND</text>
+          </svg>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="simulator">
+    <div class="container-custom">
+      <div class="section-heading reveal">
+        <span class="eyebrow"><span class="eyebrow-dot"></span>Live Interactive Simulation</span>
+        <h2>Drag the motorcycle to test LiDAR zone detection.</h2>
+        <p>Experience how LiDAR sensors dynamically detect obstacles in all four rectangular zones (Front, Left, Right, Behind) in real time with immediate sub-50ms visual response.</p>
+      </div>
+
+      <div class="sim-container reveal">
+        <div class="sim-header">
+          <div style="font-size:18px; font-weight:800; display:flex; align-items:center; gap:10px;">
+            <span style="width:10px;height:10px;border-radius:50%;background:#ef4444;display:inline-block"></span>
+            360° LiDAR Sensor Detection Field
+          </div>
+          <div style="font-size:12px; color:var(--accent-red); background:rgba(239, 68, 68, 0.1); padding:6px 14px; border-radius:999px; border:1px solid rgba(239, 68, 68, 0.25); font-weight:700;">
+            🖱️ CLICK / TOUCH & DRAG MOTORCYCLE ICON
+          </div>
+        </div>
+
+        <!-- Zone Color Legend & Status Bar -->
+        <div style="display:flex; flex-wrap:wrap; gap:16px; align-items:center; justify-content:space-between; background:rgba(255,255,255,0.03); border:1px solid var(--line); border-radius:14px; padding:12px 20px; margin-bottom:20px; font-size:13px;">
+          <div style="display:flex; align-items:center; gap:20px; flex-wrap:wrap;">
+            <div style="display:flex; align-items:center; gap:8px;">
+              <span style="width:16px; height:16px; border-radius:4px; background:rgba(255,255,255,0.08); border:1.5px solid rgba(255,255,255,0.8); display:inline-block;"></span>
+              <span style="color:#ffffff;"><strong>White Zone:</strong> Clear / Safe Zone</span>
+            </div>
+            <div style="display:flex; align-items:center; gap:8px;">
+              <span style="width:16px; height:16px; border-radius:4px; background:rgba(255,42,85,0.35); border:1.5px solid #ff2a55; display:inline-block;"></span>
+              <span style="color:#ff2a55;"><strong>Red Zone:</strong> Active Hazard Alert</span>
+            </div>
+          </div>
+          <div style="color:var(--text-muted); font-size:12px; font-weight:600;" id="simStatus">
+            Status: <span id="statusText" style="color:var(--accent-emerald); font-weight:800;">ALL ZONES CLEAR</span>
+          </div>
+        </div>
+
+        <!-- Preset Quick Simulation Buttons -->
+        <div style="display:flex; flex-wrap:wrap; gap:10px; margin-bottom:16px;">
+          <span style="font-size:12px; font-weight:700; color:var(--text-muted); align-self:center;">Quick Presets:</span>
+          <button onclick="setBikePos('left')" style="padding:5px 12px; background:rgba(255,255,255,0.05); border:1px solid var(--line); border-radius:8px; font-size:11px; font-weight:700; color:#fff;">Left Blindspot</button>
+          <button onclick="setBikePos('right')" style="padding:5px 12px; background:rgba(255,255,255,0.05); border:1px solid var(--line); border-radius:8px; font-size:11px; font-weight:700; color:#fff;">Right Blindspot</button>
+          <button onclick="setBikePos('behind')" style="padding:5px 12px; background:rgba(255,255,255,0.05); border:1px solid var(--line); border-radius:8px; font-size:11px; font-weight:700; color:#fff;">Tailgating Rear</button>
+          <button onclick="setBikePos('clear')" style="padding:5px 12px; background:rgba(16,185,129,0.15); border:1px solid rgba(16,185,129,0.3); border-radius:8px; font-size:11px; font-weight:700; color:var(--accent-emerald);">Clear Field</button>
+        </div>
+
+        <div class="sim-canvas-wrapper" id="canvasWrapper">
+          <canvas id="simCanvas"></canvas>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="vehicles" style="background:radial-gradient(circle at center, rgba(239, 68, 68, 0.05), transparent 70%);">
+    <div class="container-custom">
+      <div class="section-heading reveal">
+        <span class="eyebrow"><span class="eyebrow-dot"></span>Vehicle Integration</span>
+        <h2>How ASTSS Integrates Across 4 Vehicle Types</h2>
+        <p>
+          While engineered primarily for <strong>commercial semi-trailers & heavy articulated trucks</strong>, ASTSS features modular mounting configurations adaptable for <strong>cars, buses, and vans</strong>.
+        </p>
+      </div>
+
+      <!-- 4 Vehicles Grid Placeholders -->
+      <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap:24px;" class="reveal">
+
+        <!-- Vehicle 1: Semi-Trailer & Heavy Truck (PRIMARY) -->
+        <div class="vehicle-card primary-vehicle">
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
+            <span style="font-size:11px; font-weight:900; background:linear-gradient(135deg, var(--accent-red), var(--accent-darkred)); color:#fff; padding:4px 10px; border-radius:999px; text-transform:uppercase;">Primary Application</span>
+            <span style="font-size:24px;">🚛</span>
+          </div>
+
+          <h3 style="font-size:20px; font-weight:800; color:#fff;">1. Commercial Semi-Trailer</h3>
+          <p style="font-size:13px; color:var(--text-muted); margin-top:4px; margin-bottom:16px;">
+            Primary target vehicle. Solves wide-radius blind spot turning hazards and long flank lane change blindness.
+          </p>
+
+          <!-- Diagram Placeholder Container -->
+          <div style="position:relative; width:100%; height:220px; border-radius:16px; background:#080406; border:2px dashed rgba(239,68,68,0.4); display:flex; flex-direction:column; align-items:center; justify-content:center; overflow:hidden;">
+            <img src="trailerdash.png" alt="Trailer Integration Schematic" style="width:100%; height:100%; object-fit:cover;" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+            
+            <!-- Sleek Visual Placeholder Fallback -->
+            <div style="display:none; width:100%; height:100%; padding:16px; flex-direction:column; align-items:center; justify-content:center; text-align:center;">
+              <svg viewBox="0 0 280 120" style="width:100%; height:90px;" xmlns="http://www.w3.org/2000/svg">
+                <!-- Trailer Outline -->
+                <rect x="70" y="30" width="160" height="50" rx="4" fill="rgba(239,68,68,0.12)" stroke="#ef4444" stroke-width="2"/>
+                <!-- Cab Outline -->
+                <path d="M20 50 L50 50 L65 30 L70 30 L70 80 L20 80 Z" fill="rgba(255,255,255,0.08)" stroke="#ffffff" stroke-width="1.5"/>
+                <!-- Wheels -->
+                <circle cx="40" cy="80" r="10" fill="#160c10" stroke="#a89a9f" stroke-width="2"/>
+                <circle cx="110" cy="80" r="10" fill="#160c10" stroke="#a89a9f" stroke-width="2"/>
+                <circle cx="200" cy="80" r="10" fill="#160c10" stroke="#a89a9f" stroke-width="2"/>
+                <!-- LiDAR Sensor Point -->
+                <circle cx="150" cy="30" r="8" fill="#ff2a55" stroke="#ffffff" stroke-width="2">
+                  <animate attributeName="r" values="6;9;6" dur="2s" repeatCount="indefinite"/>
+                </circle>
+              </svg>
+              <div style="font-size:10px; font-family:var(--font-mono); color:var(--text-muted); margin-top:6px;">[ Image Placeholder: vehicle_trailer.jpg ]</div>
+            </div>
+            <span style="position:absolute; top:8px; right:8px; background:rgba(0,0,0,0.85); border:1px solid var(--line-bright); font-size:9px; font-weight:800; color:var(--accent-red); padding:3px 8px; border-radius:6px;">HEAVY TRAILER SETUP</span>
+          </div>
+        </div>
+
+        <!-- Vehicle 2: Passenger Car / SUV -->
+        <div class="vehicle-card">
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
+            <span style="font-size:11px; font-weight:800; background:rgba(16,185,129,0.15); border:1px solid rgba(16,185,129,0.3); color:var(--accent-emerald); padding:4px 10px; border-radius:999px; text-transform:uppercase;">Plus Point Module</span>
+            <span style="font-size:24px;">🚗</span>
+          </div>
+
+          <h3 style="font-size:20px; font-weight:800; color:#fff;">2. Passenger Car / SUV</h3>
+          <p style="font-size:13px; color:var(--text-muted); margin-top:4px; margin-bottom:16px;">
+            Compact mounting configuration providing full 360° proximity shield during highway overtaking and tight urban merges.
+          </p>
+
+          <!-- Diagram Placeholder Container -->
+          <div style="position:relative; width:100%; height:220px; border-radius:16px; background:#080406; border:2px dashed rgba(255,255,255,0.2); display:flex; flex-direction:column; align-items:center; justify-content:center; overflow:hidden;">
+            <img src="cardash.png" alt="Car Integration Schematic" style="width:100%; height:100%; object-fit:cover;" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+            
+            <!-- Sleek Visual Placeholder Fallback -->
+            <div style="display:none; width:100%; height:100%; padding:16px; flex-direction:column; align-items:center; justify-content:center; text-align:center;">
+              <svg viewBox="0 0 280 120" style="width:100%; height:90px;" xmlns="http://www.w3.org/2000/svg">
+                <!-- Sedan Silhouette -->
+                <path d="M40 70 L60 45 L110 40 L180 40 L220 55 L240 70 Z" fill="rgba(16,185,129,0.12)" stroke="#10b981" stroke-width="2"/>
+                <rect x="30" y="70" width="220" height="15" rx="3" fill="rgba(16,185,129,0.2)" stroke="#10b981" stroke-width="1.5"/>
+                <!-- Wheels -->
+                <circle cx="70" cy="85" r="10" fill="#160c10" stroke="#a89a9f" stroke-width="2"/>
+                <circle cx="210" cy="85" r="10" fill="#160c10" stroke="#a89a9f" stroke-width="2"/>
+                <!-- LiDAR Sensor Point -->
+                <circle cx="140" cy="40" r="7" fill="#10b981" stroke="#ffffff" stroke-width="2">
+                  <animate attributeName="r" values="5;8;5" dur="2s" repeatCount="indefinite"/>
+                </circle>
+              </svg>
+              <div style="font-size:10px; font-family:var(--font-mono); color:var(--text-muted); margin-top:6px;">[ Image Placeholder: vehicle_car.jpg ]</div>
+            </div>
+            <span style="position:absolute; top:8px; right:8px; background:rgba(0,0,0,0.85); border:1px solid var(--line); font-size:9px; font-weight:800; color:var(--accent-emerald); padding:3px 8px; border-radius:6px;">CAR INTEGRATION</span>
+          </div>
+        </div>
+
+        <!-- Vehicle 3: Commercial Passenger Bus -->
+        <div class="vehicle-card">
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
+            <span style="font-size:11px; font-weight:800; background:rgba(245,158,11,0.15); border:1px solid rgba(245,158,11,0.3); color:var(--accent-amber); padding:4px 10px; border-radius:999px; text-transform:uppercase;">Fleet Safety</span>
+            <span style="font-size:24px;">🚌</span>
+          </div>
+
+          <h3 style="font-size:20px; font-weight:800; color:#fff;">3. Commercial Passenger Bus</h3>
+          <p style="font-size:13px; color:var(--text-muted); margin-top:4px; margin-bottom:16px;">
+            Protects lengthy side passenger flanks and rear blind zones during frequent bus stop merges and pedestrian crossings.
+          </p>
+
+          <!-- Diagram Placeholder Container -->
+          <div style="position:relative; width:100%; height:220px; border-radius:16px; background:#080406; border:2px dashed rgba(255,255,255,0.2); display:flex; flex-direction:column; align-items:center; justify-content:center; overflow:hidden;">
+            <img src="busdash.png" alt="Bus Integration Schematic" style="width:100%; height:100%; object-fit:cover;" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+            
+            <!-- Sleek Visual Placeholder Fallback -->
+            <div style="display:none; width:100%; height:100%; padding:16px; flex-direction:column; align-items:center; justify-content:center; text-align:center;">
+              <svg viewBox="0 0 280 120" style="width:100%; height:90px;" xmlns="http://www.w3.org/2000/svg">
+                <!-- Bus Frame -->
+                <rect x="30" y="30" width="220" height="50" rx="6" fill="rgba(245,158,11,0.12)" stroke="#f59e0b" stroke-width="2"/>
+                <!-- Windows -->
+                <rect x="45" y="38" width="30" height="18" fill="rgba(255,255,255,0.2)"/>
+                <rect x="85" y="38" width="30" height="18" fill="rgba(255,255,255,0.2)"/>
+                <rect x="125" y="38" width="30" height="18" fill="rgba(255,255,255,0.2)"/>
+                <rect x="165" y="38" width="30" height="18" fill="rgba(255,255,255,0.2)"/>
+                <!-- Wheels -->
+                <circle cx="70" cy="80" r="10" fill="#160c10" stroke="#a89a9f" stroke-width="2"/>
+                <circle cx="210" cy="80" r="10" fill="#160c10" stroke="#a89a9f" stroke-width="2"/>
+                <!-- LiDAR Sensor Point -->
+                <circle cx="140" cy="30" r="7" fill="#f59e0b" stroke="#ffffff" stroke-width="2">
+                  <animate attributeName="r" values="5;8;5" dur="2s" repeatCount="indefinite"/>
+                </circle>
+              </svg>
+              <div style="font-size:10px; font-family:var(--font-mono); color:var(--text-muted); margin-top:6px;">[ Image Placeholder: vehicle_bus.jpg ]</div>
+            </div>
+            <span style="position:absolute; top:8px; right:8px; background:rgba(0,0,0,0.85); border:1px solid var(--line); font-size:9px; font-weight:800; color:var(--accent-amber); padding:3px 8px; border-radius:6px;">BUS INTEGRATION</span>
+          </div>
+        </div>
+
+        <!-- Vehicle 4: Delivery & Logistics Van -->
+        <div class="vehicle-card">
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
+            <span style="font-size:11px; font-weight:800; background:rgba(6,182,212,0.15); border:1px solid rgba(6,182,212,0.3); color:var(--accent-cyan); padding:4px 10px; border-radius:999px; text-transform:uppercase;">Logistics Support</span>
+            <span style="font-size:24px;">🚐</span>
+          </div>
+
+          <h3 style="font-size:20px; font-weight:800; color:#fff;">4. Logistics Delivery Van</h3>
+          <p style="font-size:13px; color:var(--text-muted); margin-top:4px; margin-bottom:16px;">
+            Prevents side-swipe collisions and tailgating incidents in high-frequency urban stop-and-go courier operations.
+          </p>
+
+          <!-- Diagram Placeholder Container -->
+          <div style="position:relative; width:100%; height:220px; border-radius:16px; background:#080406; border:2px dashed rgba(255,255,255,0.2); display:flex; flex-direction:column; align-items:center; justify-content:center; overflow:hidden;">
+            <img src="vandash.png" alt="Van Integration Schematic" style="width:100%; height:100%; object-fit:cover;" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+            
+            <!-- Sleek Visual Placeholder Fallback -->
+            <div style="display:none; width:100%; height:100%; padding:16px; flex-direction:column; align-items:center; justify-content:center; text-align:center;">
+              <svg viewBox="0 0 280 120" style="width:100%; height:90px;" xmlns="http://www.w3.org/2000/svg">
+                <!-- Van Body -->
+                <path d="M40 35 L190 35 L240 55 L240 75 L40 75 Z" fill="rgba(6,182,212,0.12)" stroke="#06b6d4" stroke-width="2"/>
+                <rect x="180" y="45" width="45" height="20" fill="rgba(255,255,255,0.2)"/>
+                <!-- Wheels -->
+                <circle cx="75" cy="75" r="10" fill="#160c10" stroke="#a89a9f" stroke-width="2"/>
+                <circle cx="200" cy="75" r="10" fill="#160c10" stroke="#a89a9f" stroke-width="2"/>
+                <!-- LiDAR Sensor Point -->
+                <circle cx="120" cy="35" r="7" fill="#06b6d4" stroke="#ffffff" stroke-width="2">
+                  <animate attributeName="r" values="5;8;5" dur="2s" repeatCount="indefinite"/>
+                </circle>
+              </svg>
+              <div style="font-size:10px; font-family:var(--font-mono); color:var(--text-muted); margin-top:6px;">[ Image Placeholder: vehicle_van.jpg ]</div>
+            </div>
+            <span style="position:absolute; top:8px; right:8px; background:rgba(0,0,0,0.85); border:1px solid var(--line); font-size:9px; font-weight:800; color:var(--accent-cyan); padding:3px 8px; border-radius:6px;">VAN INTEGRATION</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <section id="technology">
+    <div class="container-custom">
+      <div class="section-heading reveal">
+        <span class="eyebrow"><span class="eyebrow-dot"></span>System Features</span>
+        <h2>High Performance. Maximum Precision.</h2>
+        <p>Combining high-speed 360° LiDAR optical distance sensors with custom microcontroller firmware to ensure safe lane changing across all vehicle fleet categories.</p>
+      </div>
+
+      <div class="bento-grid">
+        <div class="bento-card span-2 reveal">
+          <div style="width:44px; height:44px; border-radius:12px; background:rgba(239,68,68,0.1); border:1px solid rgba(239,68,68,0.25); display:grid; place-items:center; color:var(--accent-red); margin-bottom:16px; font-size:20px;">🛡️</div>
+          <h3 style="font-size:20px; font-weight:800; margin-bottom:8px;">Safe Lane Changing Assistant</h3>
+          <p style="color:var(--text-muted); font-size:14px; line-height:1.6;">Eliminates dangerous side and rear blind spots during high-speed lane merges. Provides drivers with immediate visual alerts prior to initiating a lane change to protect vulnerable motorcycles and nearby traffic.</p>
+        </div>
+
+        <div class="bento-card reveal">
+          <div style="width:44px; height:44px; border-radius:12px; background:rgba(239,68,68,0.1); border:1px solid rgba(239,68,68,0.25); display:grid; place-items:center; color:var(--accent-red); margin-bottom:16px; font-size:20px;">🚛</div>
+          <h3 style="font-size:20px; font-weight:800; margin-bottom:8px;">Trailer-First & Universal Compatibility</h3>
+          <p style="color:var(--text-muted); font-size:14px; line-height:1.6;">Purpose-built for heavy commercial articulated trailers where blind spots are most critical, with the added benefit of flexible deployment across buses, delivery vans, and passenger cars.</p>
+        </div>
+
+        <div class="bento-card span-2 reveal">
+          <div style="width:44px; height:44px; border-radius:12px; background:rgba(239,68,68,0.1); border:1px solid rgba(239,68,68,0.25); display:grid; place-items:center; color:var(--accent-red); margin-bottom:16px; font-size:20px;">⚡</div>
+          <h3 style="font-size:20px; font-weight:800; margin-bottom:8px;">Sub-50ms Real-Time Multi-Zone Detection</h3>
+          <p style="color:var(--text-muted); font-size:14px; line-height:1.6;">Scanning LiDAR coverage protects all surrounding zones (Front, Left, Right, Behind) simultaneously. The moment an object enters any detection zone, signal filtering alerts the driver in milliseconds.</p>
+        </div>
+
+        <div class="bento-card reveal">
+          <div style="width:44px; height:44px; border-radius:12px; background:rgba(239,68,68,0.1); border:1px solid rgba(239,68,68,0.25); display:grid; place-items:center; color:var(--accent-red); margin-bottom:16px; font-size:20px;">🎯</div>
+          <h3 style="font-size:20px; font-weight:800; margin-bottom:8px;">6M - 12M Range Scanning</h3>
+          <p style="color:var(--text-muted); font-size:14px; line-height:1.6;">Calibrated LiDAR range coverage tailored specifically to vehicle lengths, lateral blind spots, and safe merging distances.</p>
+        </div>
+      </div>
+
+      <!-- Technical Hardware Showcase -->
+      <div style="background:linear-gradient(145deg, #160b0e, #0d0608); border:1px solid var(--line-bright); border-radius:28px; padding:30px; margin-top:40px;" class="reveal">
+        <div style="margin-bottom:28px;">
+          <span class="eyebrow"><span class="eyebrow-dot"></span>Hardware Architecture</span>
+          <h3 style="font-size:30px; font-weight:800; margin-top:10px; line-height:1.1">System Components & Hardware</h3>
+          <p style="color:var(--text-muted); font-size:14px; margin-top:8px; max-width:750px;">
+            At its core, the ASTSS hardware architecture relies on a closely integrated three-part electronic system: a precision LiDAR sensor designed to gather real-time spatial data and distance measurements, a high-performance ESP32 microcontroller serving as the central processing unit to execute logical tasks and manage module communication, and a compact 1.9-inch display screen that renders live telemetry, system status, and visual feedback for the user.
+          </p>
+        </div>
+
+        <!-- Hardware Components Grid (3 Modules) -->
+        <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap:20px;">
+          
+          <!-- Component 1: LiDAR Sensor -->
+          <div style="background:var(--bg-card); border:1px solid var(--line); border-radius:18px; padding:20px; display:flex; flex-direction:column;">
+            <div style="position:relative; width:100%; height:180px; border-radius:12px; overflow:hidden; border:2px dashed rgba(239, 68, 68, 0.35); background:#080406; display:flex; align-items:center; justify-content:center; margin-bottom:16px;">
+              <img src="lidar_sensor.png" alt="360° LiDAR Sensor Component" style="width:100%; height:100%; object-fit:cover;" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+              <!-- Placeholder UI -->
+              <div style="display:none; flex-direction:column; align-items:center; text-align:center; padding:16px; color:var(--text-muted); gap:8px;">
+                <span style="font-size:36px;">📡</span>
+                <strong style="color:#fff; font-size:14px;">360° LiDAR Sensor Module</strong>
+                <span style="font-size:10px; font-family:var(--font-mono); color:var(--accent-red);">[ Image Placeholder: lidar_sensor.jpg ]</span>
+              </div>
+              <span style="position:absolute; top:8px; left:8px; background:rgba(0,0,0,0.85); border:1px solid var(--line-bright); font-size:9px; font-weight:800; color:#fff; padding:3px 8px; border-radius:6px;">MODULE 01</span>
+            </div>
+            <h4 style="font-size:16px; font-weight:800; color:#fff;">360° Optical LiDAR Sensor</h4>
+            <p style="font-size:12px; color:var(--text-muted); margin-top:6px; line-height:1.5;">High-frequency laser scanning distance range sensor operating across full 360-degree perimeter.</p>
+          </div>
+
+          <!-- Component 2: ESP32 MCU -->
+          <div style="background:var(--bg-card); border:1px solid var(--line); border-radius:18px; padding:20px; display:flex; flex-direction:column;">
+            <div style="position:relative; width:100%; height:180px; border-radius:12px; overflow:hidden; border:2px dashed rgba(239, 68, 68, 0.35); background:#080406; display:flex; align-items:center; justify-content:center; margin-bottom:16px;">
+              <img src="esp32_mcu.png" alt="ESP32 Microcontroller Board" style="width:100%; height:100%; object-fit:cover;" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+              <!-- Placeholder UI -->
+              <div style="display:none; flex-direction:column; align-items:center; text-align:center; padding:16px; color:var(--text-muted); gap:8px;">
+                <span style="font-size:36px;">🧠</span>
+                <strong style="color:#fff; font-size:14px;">ESP32 MCU Controller</strong>
+                <span style="font-size:10px; font-family:var(--font-mono); color:var(--accent-red);">[ Image Placeholder: esp32_mcu.jpg ]</span>
+              </div>
+              <span style="position:absolute; top:8px; left:8px; background:rgba(0,0,0,0.85); border:1px solid var(--line-bright); font-size:9px; font-weight:800; color:#fff; padding:3px 8px; border-radius:6px;">MODULE 02</span>
+            </div>
+            <h4 style="font-size:16px; font-weight:800; color:#fff;">ESP32 Microcontroller</h4>
+            <p style="font-size:12px; color:var(--text-muted); margin-top:6px; line-height:1.5;">Dual-core CPU unit executing multi-zone coordinate conversion and filtering under 50 milliseconds.</p>
+          </div>
+
+          <!-- Component 3: 1.9" TFT Display -->
+          <div style="background:var(--bg-card); border:1px solid var(--line); border-radius:18px; padding:20px; display:flex; flex-direction:column;">
+            <div style="position:relative; width:100%; height:180px; border-radius:12px; overflow:hidden; border:2px dashed rgba(239, 68, 68, 0.35); background:#080406; display:flex; align-items:center; justify-content:center; margin-bottom:16px;">
+              <img src="tft_display.jpeg" alt="1.9 TFT Driver HUD Display" style="width:100%; height:100%; object-fit:cover;" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+              <!-- Placeholder UI -->
+              <div style="display:none; flex-direction:column; align-items:center; text-align:center; padding:16px; color:var(--text-muted); gap:8px;">
+                <span style="font-size:36px;">🖥️</span>
+                <strong style="color:#fff; font-size:14px;">1.9" TFT Driver HUD</strong>
+                <span style="font-size:10px; font-family:var(--font-mono); color:var(--accent-red);">[ Image Placeholder: tft_display.jpg ]</span>
+              </div>
+              <span style="position:absolute; top:8px; left:8px; background:rgba(0,0,0,0.85); border:1px solid var(--line-bright); font-size:9px; font-weight:800; color:#fff; padding:3px 8px; border-radius:6px;">MODULE 03</span>
+            </div>
+            <h4 style="font-size:16px; font-weight:800; color:#fff;">1.9" TFT HUD Display</h4>
+            <p style="font-size:12px; color:var(--text-muted); margin-top:6px; line-height:1.5;">High-contrast driver alert interface mounted in-cab for instant visual feedback on active zones.</p>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="team" class="team-section">
+    <div class="container-custom">
+      <div class="section-heading reveal">
+        <span class="eyebrow"><span class="eyebrow-dot"></span>Project Innovators</span>
+        <h2>Meet the Engineers & Innovators.</h2>
+        <p>The dedicated team behind the design, LiDAR integration, embedded software programming, and safety testing of the Adaptive Smart Trailer Safety System.</p>
+      </div>
+
+      <div class="team-grid">
+        <!-- Team Leader Card -->
+        <div class="team-card leader reveal">
+          <span class="leader-tag">TEAM LEADER</span>
+          <div style="width:90px; height:90px; border-radius:50%; margin-bottom:18px; padding:3px; background:linear-gradient(135deg, var(--accent-red), var(--accent-darkred));">
+            <div style="width:100%; height:100%; border-radius:50%; background:#0c0608; display:grid; place-items:center;">
+              <svg viewBox="0 0 24 24" style="width:48px; height:48px; fill:none; stroke:var(--accent-red); stroke-width:1.8">
+                <path d="M12 2L15 8L21 9L17 14L18 20L12 17L6 20L7 14L3 9L9 8L12 2Z" fill="rgba(239,68,68,0.25)"/>
+                <path d="M12 12C14.21 12 16 10.21 16 8C16 5.79 14.21 4 12 4C9.79 4 8 5.79 8 8C8 10.21 9.79 12 12 12ZM12 14C9.33 14 4 15.34 4 18V20H20V18C20 15.34 14.67 14 12 14Z"/>
+              </svg>
+            </div>
+          </div>
+          <div style="font-size:11px; font-weight:800; letter-spacing:0.12em; text-transform:uppercase; color:var(--accent-red); margin-bottom:6px;">Project Leader & Hardware Lead</div>
+          <h3 style="font-size:18px; font-weight:800; color:#fff; line-height:1.35; margin-bottom:10px;">Ahmad Zulfaaiz Haikal<br>bin Ab Aziz</h3>
+          <p style="font-size:12px; color:var(--text-muted); line-height:1.5; margin-top:auto;">Spearheading system architecture, LiDAR sensor calibration, project coordination, and technical presentation.</p>
+        </div>
+
+        <!-- Team Member 1 -->
+        <div class="team-card reveal">
+          <div style="width:90px; height:90px; border-radius:50%; margin-bottom:18px; padding:3px; background:linear-gradient(135deg, var(--line-bright), rgba(255,255,255,0.02));">
+            <div style="width:100%; height:100%; border-radius:50%; background:#0c0608; display:grid; place-items:center;">
+              <svg viewBox="0 0 24 24" style="width:48px; height:48px; fill:none; stroke:#60a5fa; stroke-width:1.8">
+                <path d="M12 12C14.21 12 16 10.21 16 8C16 5.79 14.21 4 12 4C9.79 4 8 5.79 8 8C8 10.21 9.79 12 12 12ZM12 14C9.33 14 4 15.34 4 18V20H20V18C20 15.34 14.67 14 12 14Z"/>
+              </svg>
+            </div>
+          </div>
+          <div style="font-size:11px; font-weight:800; letter-spacing:0.12em; text-transform:uppercase; color:#60a5fa; margin-bottom:6px;">Co-Leader & Technical Lead</div>
+          <h3 style="font-size:18px; font-weight:800; color:#fff; line-height:1.35; margin-bottom:10px;">Muhammad Azwar<br>bin Buddiman</h3>
+          <p style="font-size:12px; color:var(--text-muted); line-height:1.5; margin-top:auto;">Focusing on embedded systems programming, multi-zone signal processing algorithms, and hardware integration.</p>
+        </div>
+
+        <!-- Team Member 2 -->
+        <div class="team-card reveal">
+          <div style="width:90px; height:90px; border-radius:50%; margin-bottom:18px; padding:3px; background:linear-gradient(135deg, var(--line-bright), rgba(255,255,255,0.02));">
+            <div style="width:100%; height:100%; border-radius:50%; background:#0c0608; display:grid; place-items:center;">
+              <svg viewBox="0 0 24 24" style="width:48px; height:48px; fill:none; stroke:#f87171; stroke-width:1.8">
+                <path d="M12 12C14.21 12 16 10.21 16 8C16 5.79 14.21 4 12 4C9.79 4 8 5.79 8 8C8 10.21 9.79 12 12 12ZM12 14C9.33 14 4 15.34 4 18V20H20V18C20 15.34 14.67 14 12 14Z"/>
+              </svg>
+            </div>
+          </div>
+          <div style="font-size:11px; font-weight:800; letter-spacing:0.12em; text-transform:uppercase; color:#f87171; margin-bottom:6px;">Hardware & Finance Manager</div>
+          <h3 style="font-size:18px; font-weight:800; color:#fff; line-height:1.35; margin-bottom:10px;">Muhammad Muqri<br>bin Razali</h3>
+          <p style="font-size:12px; color:var(--text-muted); line-height:1.5; margin-top:auto;">Managing physical casing design, central LiDAR mounting layout, budget allocation, and prototype assembly.</p>
+        </div>
+
+        <!-- Team Member 3 -->
+        <div class="team-card reveal">
+          <div style="width:90px; height:90px; border-radius:50%; margin-bottom:18px; padding:3px; background:linear-gradient(135deg, var(--line-bright), rgba(255,255,255,0.02));">
+            <div style="width:100%; height:100%; border-radius:50%; background:#0c0608; display:grid; place-items:center;">
+              <svg viewBox="0 0 24 24" style="width:48px; height:48px; fill:none; stroke:#f472b6; stroke-width:1.8">
+                <path d="M12 12C14.21 12 16 10.21 16 8C16 5.79 14.21 4 12 4C9.79 4 8 5.79 8 8C8 10.21 9.79 12 12 12ZM12 14C9.33 14 4 15.34 4 18V20H20V18C20 15.34 14.67 14 12 14Z"/>
+              </svg>
+            </div>
+          </div>
+          <div style="font-size:11px; font-weight:800; letter-spacing:0.12em; text-transform:uppercase; color:#f472b6; margin-bottom:6px;">Operations & Safety Lead</div>
+          <h3 style="font-size:18px; font-weight:800; color:#fff; line-height:1.35; margin-bottom:10px;">Nur Maisaqinah Ashifa<br>binti Mohamad</h3>
+          <p style="font-size:12px; color:var(--text-muted); line-height:1.5; margin-top:auto;">Handling safety data analysis, documentation, user testing feedback, and project outreach.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Lead Engineer & Ongoing Prototype Showcase -->
+  <section id="lead-prototype" style="background:radial-gradient(circle at top, rgba(239,68,68,0.08), transparent 60%);">
+    <div class="container-custom">
+      <div class="section-heading reveal">
+        <span class="eyebrow"><span class="eyebrow-dot"></span>Hands-On Development</span>
+        <h2>Lead Engineer & Ongoing Prototype</h2>
+        <p>A look at the active hardware assembly, laboratory testing, and ongoing prototype development led by Ahmad Zulfaaiz Haikal.</p>
+      </div>
+
+      <div style="display:grid; grid-template-columns:1fr; gap:32px; align-items:center;" class="reveal">
+        <!-- Image Placeholder Box -->
+        <div style="position:relative; width:100%; height:auto; border-radius:24px; background:#080406; border:2px dashed rgba(239, 68, 68, 0.4); display:flex; flex-direction:column; align-items:center; justify-content:center; overflow:hidden; box-shadow:0 25px 50px rgba(0,0,0,0.6);">
+          <img src="me_with_prototype.jpg" alt="Ahmad Zulfaaiz Haikal with Ongoing Prototype" style="width:100%; height:100%; object-fit:cover;" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+          
+          <!-- Fallback Graphic UI for Image Placeholder -->
+          <div style="display:none; width:100%; height:100%; padding:30px; flex-direction:column; align-items:center; justify-content:center; text-align:center; background:linear-gradient(145deg, #180c11, #0a0406);">
+            <div style="width:80px; height:80px; border-radius:50%; background:rgba(239,68,68,0.12); border:2px stroke var(--accent-red); display:grid; place-items:center; font-size:36px; margin-bottom:16px;">
+              👨‍💻
+            </div>
+            <h3 style="font-size:18px; font-weight:800; color:#fff; margin-bottom:6px;">Ahmad Zulfaaiz Haikal with Ongoing Prototype</h3>
+            <p style="font-size:13px; color:var(--text-muted); max-width:320px; margin-bottom:12px;">Photo showing Lead Engineer testing the live ESP32 & LiDAR prototype setup in the laboratory.</p>
+            <span style="font-size:11px; font-family:var(--font-mono); color:var(--accent-red); background:rgba(239,68,68,0.15); padding:4px 12px; border-radius:8px; border:1px solid rgba(239,68,68,0.3);">[ Image Placeholder: me_with_prototype.jpg ]</span>
+          </div>
+        </div>
+
+        <!-- Descriptive Copy -->
+        <div style="display:flex; flex-direction:column; gap:18px;">
+          <div style="display:inline-flex; align-items:center; gap:8px; padding:6px 14px; border-radius:999px; background:rgba(239, 68, 68, 0.12); border:1px solid rgba(239, 68, 68, 0.35); color:var(--accent-red); font-size:11px; font-weight:800; letter-spacing:0.1em; text-transform:uppercase; align-self:flex-start;">
+            🔧 ACTIVE HARDWARE INTEGRATION
+          </div>
+          
+          <h3 style="font-size:28px; font-weight:800; color:#fff; line-height:1.2;">Bringing 360° LiDAR Blind Spot Protection to Life</h3>
+          
+          <p style="color:var(--text-muted); font-size:14px; line-height:1.7;">
+            Under the leadership of <strong>Ahmad Zulfaaiz Haikal bin Ab Aziz</strong>, our team is actively conducting hands-on hardware validation. The ongoing prototype integrates high-precision 360° LiDAR scanning with custom ESP32 firmware to filter out environmental noise and output sub-50ms visual alerts.
+          </p>
+
+          <div style="display:flex; flex-direction:column; gap:12px; margin-top:8px;">
+            <div style="display:flex; align-items:center; gap:12px; background:var(--bg-card); padding:12px 18px; border-radius:14px; border:1px solid var(--line);">
+              <span style="color:var(--accent-emerald); font-size:18px;">✓</span>
+              <span style="font-size:13px; font-weight:700; color:#fff;">LiDAR Optical Calibration & Beam Angles</span>
+            </div>
+            <div style="display:flex; align-items:center; gap:12px; background:var(--bg-card); padding:12px 18px; border-radius:14px; border:1px solid var(--line);">
+              <span style="color:var(--accent-emerald); font-size:18px;">✓</span>
+              <span style="font-size:13px; font-weight:700; color:#fff;">ESP32 Dual-Core Coordinate Filtering</span>
+            </div>
+            <div style="display:flex; align-items:center; gap:12px; background:var(--bg-card); padding:12px 18px; border-radius:14px; border:1px solid var(--line);">
+              <span style="color:var(--accent-emerald); font-size:18px;">✓</span>
+              <span style="font-size:13px; font-weight:700; color:#fff;">1.9" In-Cab Driver HUD Integration</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SSSVC Section: Roadmap & Milestones -->
+  <section id="sssvc">
+    <div class="container-custom">
+      <div class="section-heading reveal">
+        <span class="eyebrow"><span class="eyebrow-dot"></span>Shell Selamat Sampai Varsity Challenge 2026</span>
+        <h2>Roadmap & Milestones</h2>
+        <p>Our strategic progress, competition milestones, and Grand Final exhibition booth preparation for SSSVC 2026.</p>
+      </div>
+
+      <!-- Roadmap & Qualified Top 20 Cards Grid -->
+      <div style="display:grid; grid-template-columns:1fr; gap:24px; margin-bottom:40px;" class="reveal">
+        <!-- Qualified for Top 20 Card -->
+        <div style="background:var(--bg-card); border:1px solid var(--line-bright); border-radius:28px; padding:32px; display:flex; flex-direction:column;">
+          <div style="display:inline-flex; align-items:center; gap:8px; padding:6px 14px; border-radius:999px; background:rgba(245, 158, 11, 0.12); border:1px solid rgba(245, 158, 11, 0.35); color:var(--accent-amber); font-size:11px; font-weight:800; letter-spacing:0.1em; text-transform:uppercase; align-self:flex-start; margin-bottom:20px;">
+            🏆 NATIONAL COMPETITION SELECTION
+          </div>
+          
+          <h3 style="font-size:26px; font-weight:800; color:#fff; margin-bottom:12px;">Qualified for Top 20</h3>
+          <p style="color:var(--text-muted); font-size:14px; line-height:1.6; margin-bottom:24px;">
+            Our project successfully passed the national selection phase for the Shell Selamat Sampai Varsity Challenge 2026 among university teams across Malaysia.
+          </p>
+
+          <ul style="display:flex; flex-direction:column; gap:18px; font-size:13px; color:var(--text-muted); margin-top:auto;">
+            <li style="display:flex; gap:14px; align-items:flex-start;">
+              <span style="width:28px; height:28px; border-radius:50%; background:rgba(16, 185, 129, 0.2); border:1px solid var(--accent-emerald); color:var(--accent-emerald); display:grid; place-items:center; font-weight:800; font-size:14px; flex-shrink:0;">✓</span>
+              <div>
+                <strong style="color:#fff; display:block; font-size:14px;">National Top 20 Selection</strong>
+                Recognized by judges for innovation in road and trailer safety.
+              </div>
+            </li>
+            <li style="display:flex; gap:14px; align-items:flex-start;">
+              <span style="width:28px; height:28px; border-radius:50%; background:rgba(239, 68, 68, 0.2); border:1px solid var(--accent-red); color:var(--accent-red); display:grid; place-items:center; font-weight:800; font-size:14px; flex-shrink:0;">⚡</span>
+              <div>
+                <strong style="color:#fff; display:block; font-size:14px;">Working Hardware Validation</strong>
+                ESP32 & LiDAR detection logic verified under laboratory test conditions.
+              </div>
+            </li>
+            <li style="display:flex; gap:14px; align-items:flex-start;">
+              <span style="width:28px; height:28px; border-radius:50%; background:rgba(245, 158, 11, 0.2); border:1px solid var(--accent-amber); color:var(--accent-amber); display:grid; place-items:center; font-weight:800; font-size:14px; flex-shrink:0;">🎯</span>
+              <div>
+                <strong style="color:#fff; display:block; font-size:14px;">Next Target: Grand Final</strong>
+                Preparing the physical booth exhibition and live demonstration for final evaluation.
+              </div>
+            </li>
+          </ul>
+        </div>
+
+        <!-- Impact & Key Metrics Summary -->
+        <div style="background:var(--bg-card); border:1px solid var(--line); border-radius:28px; padding:32px; display:flex; flex-direction:column; justify-content:space-between;">
+          <div>
+            <div style="display:inline-flex; align-items:center; gap:8px; padding:6px 14px; border-radius:999px; background:rgba(16, 185, 129, 0.12); border:1px solid rgba(16, 185, 129, 0.35); color:var(--accent-emerald); font-size:11px; font-weight:800; letter-spacing:0.1em; text-transform:uppercase; align-self:flex-start; margin-bottom:20px;">
+              📊 ROAD SAFETY TARGETS
+            </div>
+            
+            <h3 style="font-size:24px; font-weight:800; color:#fff; margin-bottom:16px;">Zero Trailer Blind Spots</h3>
+            <p style="color:var(--text-muted); font-size:14px; line-height:1.6; margin-bottom:24px;">
+              Commercial trailer blind spots account for a high percentage of severe side-swipe collisions involving motorcycles. ASTSS directly addresses this challenge with cost-effective real-time 360° technology.
+            </p>
+          </div>
+
+          <div style="display:grid; grid-template-columns:1fr 1fr; gap:16px;">
+            <div style="background:#080406; border:1px solid var(--line); border-radius:16px; padding:16px;">
+              <div style="font-size:32px; font-weight:900; color:var(--accent-red); font-family:var(--font-mono);">&lt;50ms</div>
+              <div style="font-size:12px; color:var(--text-muted); margin-top:4px; font-weight:600;">Alert Latency</div>
+            </div>
+            <div style="background:#080406; border:1px solid var(--line); border-radius:16px; padding:16px;">
+              <div style="font-size:32px; font-weight:900; color:var(--accent-emerald); font-family:var(--font-mono);">360°</div>
+              <div style="font-size:12px; color:var(--text-muted); margin-top:4px; font-weight:600;">LiDAR Coverage</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Grand Final Concept & Exhibition Booth Placeholder -->
+      <div style="background:linear-gradient(145deg, #180d12, #0d0507); border:1px solid var(--line-bright); border-radius:28px; padding:32px;" class="reveal">
+        <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:16px; margin-bottom:20px;">
+          <div>
+            <span class="eyebrow" style="background:rgba(245,158,11,0.12); color:var(--accent-amber); border-color:rgba(245,158,11,0.3);"><span class="eyebrow-dot" style="background:var(--accent-amber); box-shadow:0 0 10px var(--accent-amber);"></span>EXHIBITION & BOOTH DESIGN</span>
+            <h3 style="font-size:28px; font-weight:800; color:#fff; margin-top:8px;">Grand Final Concept</h3>
+          </div>
+          <span style="font-size:13px; color:var(--text-muted); font-weight:600;">Exhibition Booth & Prototype</span>
+        </div>
+
+        <p style="color:var(--text-muted); font-size:14px; margin-bottom:24px;">
+          Conceptual setup of our proposed booth and live prototype for the Grand Final.
+        </p>
+
+        <!-- Image Placeholder Box for Exhibition Booth & Prototype -->
+        <div style="position:relative; width:100%; height:auto; border-radius:20px; background:#080406; border:2px dashed rgba(245, 158, 11, 0.4); display:flex; flex-direction:column; align-items:center; justify-content:center; overflow:hidden;">
+          <img src="booth_prototype.jpg" alt="SSSVC Grand Final Exhibition Booth & Prototype Setup" style="width:100%; height:100%; object-fit:cover;" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+          
+          <!-- Fallback Graphic UI -->
+          <div style="display:none; width:100%; height:100%; padding:30px; flex-direction:column; align-items:center; justify-content:center; text-align:center; background:linear-gradient(145deg, #160c10, #0a0406);">
+            <svg viewBox="0 0 400 180" style="width:100%; max-width:360px; height:auto; margin-bottom:16px;" xmlns="http://www.w3.org/2000/svg">
+              <!-- Exhibition Booth Frame -->
+              <rect x="40" y="30" width="320" height="120" fill="none" stroke="rgba(245,158,11,0.4)" stroke-width="2" stroke-dasharray="4,4"/>
+              <!-- Banner -->
+              <rect x="60" y="10" width="280" height="30" rx="4" fill="rgba(239,68,68,0.2)" stroke="#ef4444" stroke-width="1.5"/>
+              <text x="200" y="30" fill="#ffffff" font-family="sans-serif" font-size="11" font-weight="bold" text-anchor="middle">ASTSS GRAND FINAL EXHIBITION BOOTH</text>
+              <!-- Interactive Table with Prototype -->
+              <rect x="100" y="100" width="200" height="40" fill="rgba(255,255,255,0.08)" stroke="#a89a9f" stroke-width="1.5"/>
+              <circle cx="200" cy="90" r="10" fill="#ef4444"/>
+              <text x="200" y="125" fill="#a89a9f" font-family="sans-serif" font-size="9" text-anchor="middle">Interactive Prototype Demonstration Stand</text>
+            </svg>
+            <h4 style="font-size:16px; font-weight:800; color:#fff; margin-bottom:4px;">Grand Final Exhibition Booth Concept</h4>
+            <span style="font-size:11px; font-family:var(--font-mono); color:var(--accent-amber); background:rgba(245,158,11,0.15); padding:4px 12px; border-radius:8px; border:1px solid rgba(245,158,11,0.3);">[ Image Placeholder: booth_prototype.jpg ]</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="video">
+    <div class="container-custom">
+      <div class="section-heading reveal">
+        <span class="eyebrow"><span class="eyebrow-dot"></span>Video Demo</span>
+        <h2>ASTSS in Action & Video Pitch</h2>
+        <p>Watch our technical demonstration showing how the single 360° LiDAR sensor detects obstacles and transmits instant warning signals to the driver.</p>
+      </div>
+
+      <div style="position:relative; width:100%; padding-bottom:56.25%; height:0; border-radius:28px; overflow:hidden; border:1px solid var(--line-bright); box-shadow:0 30px 80px rgba(0,0,0,0.7);" class="reveal">
+        <iframe src="https://www.youtube.com/embed/jr83jGRsf4I?rel=0" title="ASTSS Project Pitch Video" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen style="position:absolute; top:0; left:0; width:100%; height:100%; border:0;"></iframe>
+      </div>
+    </div>
+  </section>
+
+  <!-- Live Comments Section -->
+<section id="comments" style="background:radial-gradient(ellipse at bottom, rgba(239,68,68,0.08), transparent 70%);">
+    <div class="container-custom">
+      <div class="section-heading reveal">
+        <span class="eyebrow"><span class="eyebrow-dot"></span>Community Interaction</span>
+        <h2>Live Comments & Discussions</h2>
+        <p>Post your thoughts, technical feedback, or questions about the Adaptive Smart Trailer Safety System (ASTSS) in real time.</p>
+      </div>
+
+      <div style="display:grid; grid-template-columns:1fr; gap:32px;" class="reveal">
+        <!-- Comment Input Form -->
+        <div style="background:var(--bg-card); border:1px solid var(--line); border-radius:28px; padding:32px; align-self:start;">
+          <h3 style="font-size:22px; font-weight:800; color:#fff; margin-bottom:8px; display:flex; align-items:center; gap:10px;">
+            <span>💬</span> Post a Comment
+          </h3>
+          <p style="font-size:13px; color:var(--text-muted); margin-bottom:20px;">State your name and comment below. Timestamp will be automatically recorded.</p>
+
+          <form id="commentForm" onsubmit="postComment(event)" style="display:flex; flex-direction:column; gap:16px;">
+            <div>
+              <label style="display:block; font-size:12px; font-weight:700; color:var(--text-muted); margin-bottom:6px;">Your Name *</label>
+              <input type="text" id="commentName" required placeholder="e.g. Dr. Sarah Lee / Fleet Evaluator" style="width:100%; background:#080406; border:1px solid var(--line); border-radius:12px; padding:12px 16px; color:#fff; font-size:14px; outline:none;" onfocus="this.style.borderColor='var(--accent-red)'" onblur="this.style.borderColor='var(--line)'">
+            </div>
+
+            <div>
+              <label style="display:block; font-size:12px; font-weight:700; color:var(--text-muted); margin-bottom:6px;">Your Comment *</label>
+              <textarea id="commentText" rows="4" required placeholder="Write your live comment or feedback here..." style="width:100%; background:#080406; border:1px solid var(--line); border-radius:12px; padding:12px 16px; color:#fff; font-size:14px; outline:none; resize:none;" onfocus="this.style.borderColor='var(--accent-red)'" onblur="this.style.borderColor='var(--line)'"></textarea>
+            </div>
+
+            <button type="submit" class="btn btn-primary" style="width:100%; margin-top:6px;">
+              Post Live Comment 🚀
+            </button>
+          </form>
+        </div>
+
+        <!-- Live Feed Display Container -->
+        <div>
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:16px;">
+            <h3 style="font-size:20px; font-weight:800; color:#fff; display:flex; align-items:center; gap:8px;">
+              <span>📢</span> Live Comment Stream
+            </h3>
+            <span id="commentCountBadge" style="font-size:12px; font-weight:800; background:rgba(239, 68, 68, 0.15); border:1px solid rgba(239, 68, 68, 0.3); color:var(--accent-red); padding:4px 12px; border-radius:999px;">
+              0 Comments
+            </span>
+          </div>
+
+          <div id="commentsList" style="display:flex; flex-direction:column; gap:16px; max-height:560px; overflow-y:auto; padding-right:6px;">
+            <!-- Generated dynamically via JS -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Feedback & Contact Section -->
+  <section id="feedback">
+    <div class="container-custom">
+      <div class="section-heading reveal">
+        <span class="eyebrow"><span class="eyebrow-dot"></span>Feedback & Outreach</span>
+        <h2>Get in Touch & Share Your Input</h2>
+        <p>Whether you are a fleet operator, industry judge, or safety advocate, we value your feedback to make the ASTSS system even better.</p>
+      </div>
+
+      <div style="display:grid; grid-template-columns:1fr; gap:30px;" class="reveal">
+        <!-- Interactive Form -->
+        <div style="background:var(--bg-card); border:1px solid var(--line); border-radius:28px; padding:32px;">
+          <h3 style="font-size:22px; font-weight:800; color:#fff; margin-bottom:8px;">Send Us a Message / Demo Request</h3>
+          <p style="font-size:13px; color:var(--text-muted); margin-bottom:24px;">Fill out the form below to contact Ahmad Zulfaaiz Haikal and the team.</p>
+
+          <form id="contactForm" onsubmit="handleFormSubmit(event)" style="display:flex; flex-direction:column; gap:16px;">
+            <div>
+              <label style="display:block; font-size:12px; font-weight:700; color:var(--text-muted); margin-bottom:6px;">Your Name</label>
+              <input type="text" required placeholder="e.g. Alex Tan" style="width:100%; background:#080406; border:1px solid var(--line); border-radius:12px; padding:12px 16px; color:#fff; font-size:14px; outline:none;" onfocus="this.style.borderColor='var(--accent-red)'" onblur="this.style.borderColor='var(--line)'">
+            </div>
+
+            <div>
+              <label style="display:block; font-size:12px; font-weight:700; color:var(--text-muted); margin-bottom:6px;">Email Address</label>
+              <input type="email" required placeholder="name@company.com" style="width:100%; background:#080406; border:1px solid var(--line); border-radius:12px; padding:12px 16px; color:#fff; font-size:14px; outline:none;" onfocus="this.style.borderColor='var(--accent-red)'" onblur="this.style.borderColor='var(--line)'">
+            </div>
+
+            <div>
+              <label style="display:block; font-size:12px; font-weight:700; color:var(--text-muted); margin-bottom:6px;">Organization / Role</label>
+              <input type="text" placeholder="e.g. Fleet Manager, SSSVC Evaluator" style="width:100%; background:#080406; border:1px solid var(--line); border-radius:12px; padding:12px 16px; color:#fff; font-size:14px; outline:none;" onfocus="this.style.borderColor='var(--accent-red)'" onblur="this.style.borderColor='var(--line)'">
+            </div>
+
+            <div>
+              <label style="display:block; font-size:12px; font-weight:700; color:var(--text-muted); margin-bottom:6px;">Message or Feedback</label>
+              <textarea rows="4" required placeholder="Your thoughts, demo requests, or technical questions..." style="width:100%; background:#080406; border:1px solid var(--line); border-radius:12px; padding:12px 16px; color:#fff; font-size:14px; outline:none; resize:none;" onfocus="this.style.borderColor='var(--accent-red)'" onblur="this.style.borderColor='var(--line)'"></textarea>
+            </div>
+
+            <button type="submit" class="btn btn-primary" style="width:100%; margin-top:8px;">Submit Feedback / Request ↗</button>
+          </form>
+        </div>
+
+        <!-- Direct Contact Info -->
+        <div style="background:var(--bg-card); border:1px solid var(--line); border-radius:28px; padding:32px; display:flex; flex-direction:column; justify-content:space-between;">
+          <div>
+            <h3 style="font-size:22px; font-weight:800; color:#fff; margin-bottom:12px;">Direct Contact Information</h3>
+            <p style="font-size:13px; color:var(--text-muted); line-height:1.6; margin-bottom:24px;">
+              You can also reach out to us directly via email regarding partnerships, SSSVC competition inquiries, or live prototype demonstrations.
+            </p>
+
+            <div style="display:flex; flex-direction:column; gap:16px;">
+              <div style="display:flex; align-items:center; gap:14px; background:#080406; border:1px solid var(--line); border-radius:14px; padding:16px;">
+                <span style="font-size:24px;">✉️</span>
+                <div>
+                  <div style="font-size:11px; font-weight:800; color:var(--accent-red); text-transform:uppercase;">Primary Email</div>
+                  <a href="mailto:faizhaikal3@gmail.com" style="font-size:14px; font-weight:700; color:#fff;">faizhaikal3@gmail.com</a>
+                </div>
+              </div>
+
+              <div style="display:flex; align-items:center; gap:14px; background:#080406; border:1px solid var(--line); border-radius:14px; padding:16px;">
+                <span style="font-size:24px;">📍</span>
+                <div>
+                  <div style="font-size:11px; font-weight:800; color:var(--accent-red); text-transform:uppercase;">Competition</div>
+                  <div style="font-size:14px; font-weight:700; color:#fff;">Shell Selamat Sampai Varsity Challenge 2026</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div style="margin-top:24px; padding-top:20px; border-top:1px solid var(--line); font-size:12px; color:var(--text-muted);">
+            ⚡ Fast response guaranteed for SSSVC evaluation panel members and commercial fleet partners.
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<!-- Footer -->
+<footer>
+  <div class="container-custom" style="border-top:1px solid var(--line); padding:40px 0 30px;">
+    <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:20px; font-size:13px; color:var(--text-muted);">
+      <div>
+        <strong style="color:#fff;">Adaptive Smart Trailer Safety System (ASTSS)</strong>
+        <div style="font-size:12px; margin-top:4px">Shell Selamat Sampai Varsity Challenge 2026</div>
+      </div>
+      <div>
+        Designed by Team Leader Ahmad Zulfaaiz Haikal bin Ab Aziz & Members.
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- Toast Notification Container -->
+<div id="toast">
+  <span>✓</span>
+  <span id="toastMsg">Feedback submitted successfully!</span>
+</div>
+
+<!-- External JavaScript -->
+<script src="script.js"></script>
+</body>
+</html>
